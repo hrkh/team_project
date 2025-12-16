@@ -1,0 +1,938 @@
+/* ========================================
+   1-PAGE ESCAPE GAME - STYLES
+   祖父の書斎からの脱出
+   ======================================== */
+
+/* CSS Variables */
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-room: #1a1a2e;
+  --accent-gold: #d4af37;
+  --accent-glow: #ffd700;
+  --text-light: #e8e8e8;
+  --text-dim: #888;
+  --shadow-dark: rgba(0, 0, 0, 0.8);
+  --overlay-dark: rgba(0, 0, 0, 0.9);
+  --wood-dark: #3d2510;
+  --wood-light: #6b4a30;
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ========================================
+   GAME CONTAINER
+   ======================================== */
+.game-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(180deg, #1a1510 0%, #2a2018 50%, #1a1510 100%);
+}
+
+/* ========================================
+   ROOM SCENE - 書斎の雰囲気
+   ======================================== */
+.room {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  perspective: 1000px;
+}
+
+/* Floor - 木目調 */
+.floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(180deg, #4a3828 0%, #2d1f15 100%);
+  transform: rotateX(60deg) translateZ(-100px);
+  transform-origin: bottom;
+}
+
+.floor::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0,
+      transparent 78px,
+      rgba(0, 0, 0, 0.1) 78px,
+      rgba(0, 0, 0, 0.1) 80px);
+}
+
+/* Back Wall - 暖かみのある壁紙 */
+.wall {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  height: 50%;
+  background: linear-gradient(180deg, #3a3028 0%, #2d261e 100%);
+  border: 3px solid #4a4030;
+  box-shadow:
+    inset 0 0 100px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* 壁紙パターン */
+.wall::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg,
+      transparent 0,
+      transparent 48px,
+      rgba(255, 255, 255, 0.02) 48px,
+      rgba(255, 255, 255, 0.02) 50px);
+}
+
+/* ========================================
+   INTERACTIVE OBJECTS
+   ======================================== */
+.object {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.object:hover {
+  transform: scale(1.05);
+  filter: brightness(1.3);
+  z-index: 10;
+}
+
+.object:hover::after {
+  opacity: 1;
+}
+
+.object.found {
+  animation: pulse 0.5s ease;
+}
+
+.object.found::before {
+  filter: saturate(0.5);
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ----------------------------------------
+   Painting - 額縁の写真（祖父の写真）
+   ---------------------------------------- */
+.painting {
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 120px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 15px solid;
+  border-image: linear-gradient(135deg, #8b7355, #5c4a32, #8b7355) 1;
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.8),
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 0 3px #3d2d20;
+}
+
+.painting::before {
+  content: '👴';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  background: linear-gradient(180deg, #d4c4a8 0%, #b8a888 100%);
+}
+
+.painting::after {
+  content: '📷 写真';
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* ----------------------------------------
+   Calendar - カレンダー（11月17日に印）
+   ---------------------------------------- */
+.calendar {
+  top: 15%;
+  right: 20%;
+  width: 70px;
+  height: 90px;
+  background: #f5f5f0;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.calendar::before {
+  content: '11月';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 5px;
+  background: #c0392b;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.calendar::after {
+  content: '17';
+  position: absolute;
+  top: 35px;
+  left: 0;
+  right: 0;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* ----------------------------------------
+   Safe - 金庫
+   ---------------------------------------- */
+.safe {
+  top: 35%;
+  right: 12%;
+  width: 100px;
+  height: 120px;
+  background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
+  border: 4px solid #5a5a5a;
+  border-radius: 5px;
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.safe::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 45px;
+  border: 4px solid #777;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #666 0%, #444 100%);
+}
+
+.safe::after {
+  content: '🔒';
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+/* ----------------------------------------
+   Desk - 机（引き出しに鍵とメモ）
+   ---------------------------------------- */
+.desk {
+  bottom: 22%;
+  left: 8%;
+  width: 200px;
+  height: 90px;
+  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood-dark) 100%);
+  border: 3px solid #7b5a40;
+  border-radius: 5px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    inset 0 -10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 引き出し */
+.desk::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 30px;
+  background: linear-gradient(180deg, #5a4030 0%, #4a3020 100%);
+  border: 2px solid #6b5040;
+  border-radius: 3px;
+}
+
+/* 引き出しの取っ手 */
+.desk::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 8px;
+  background: #b8860b;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(184, 134, 11, 0.5);
+}
+
+/* ----------------------------------------
+   Bookshelf - 本棚
+   ---------------------------------------- */
+.bookshelf {
+  top: 20%;
+  left: 8%;
+  width: 80px;
+  height: 140px;
+  background: linear-gradient(180deg, #5c4a32 0%, #3d3020 100%);
+  border: 4px solid #6b5940;
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 15px rgba(0, 0, 0, 0.5),
+    0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* 本 */
+.bookshelf::before {
+  content: '📚';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+}
+
+.bookshelf::after {
+  content: '📖';
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+}
+
+/* ----------------------------------------
+   Clock - 時計（11:17で止まっている）
+   ---------------------------------------- */
+.clock {
+  top: 13%;
+  left: 22%;
+  width: 75px;
+  height: 75px;
+  background: radial-gradient(circle, #f5f5dc 0%, #d4c896 100%);
+  border: 6px solid #8b7355;
+  border-radius: 50%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.clock::before {
+  content: '11:17';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2d2d2d;
+  font-family: 'Courier New', monospace;
+}
+
+/* ----------------------------------------
+   Door - ドア
+   ---------------------------------------- */
+.door {
+  bottom: 12%;
+  right: 22%;
+  width: 90px;
+  height: 170px;
+  background: linear-gradient(180deg, #5c3a20 0%, #3d2510 100%);
+  border: 4px solid #6b4a30;
+  border-radius: 5px 5px 0 0;
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ドアノブ */
+.door::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 14px;
+  height: 14px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.door.unlocked::after {
+  content: '✨';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  animation: sparkle 1s ease infinite;
+}
+
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* ----------------------------------------
+   Rug - カーペット
+   ---------------------------------------- */
+.rug {
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 55px;
+  background: linear-gradient(90deg, #8b4513 0%, #a0522d 50%, #8b4513 100%);
+  border: 3px solid #5c3317;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.rug::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 2px solid #d4a574;
+  border-radius: 6px;
+}
+
+/* ----------------------------------------
+   Lamp - ランプ
+   ---------------------------------------- */
+.lamp {
+  bottom: 28%;
+  left: 32%;
+  width: 35px;
+  height: 100px;
+}
+
+/* スタンド */
+.lamp::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 55px;
+  background: linear-gradient(180deg, #8b7355 0%, #5c4a32 100%);
+}
+
+/* シェード */
+.lamp::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 40px;
+  background: radial-gradient(ellipse at center, #fff8dc 0%, #f0e68c 50%, #daa520 100%);
+  clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%);
+  box-shadow: 0 0 40px rgba(255, 248, 220, 0.6);
+}
+
+/* ========================================
+   UI ELEMENTS
+   ======================================== */
+/* Header */
+.game-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 30px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.game-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, var(--accent-gold), #fff, var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Inventory */
+.inventory {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  padding: 15px 25px;
+  background: rgba(30, 20, 10, 0.9);
+  border: 2px solid var(--accent-gold);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+
+.inventory-slot {
+  width: 55px;
+  height: 55px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: all 0.3s ease;
+}
+
+.inventory-slot.filled {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  animation: itemGet 0.5s ease;
+}
+
+@keyframes itemGet {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Hint Counter */
+.hint-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-gold);
+}
+
+.hint-counter span {
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   MODAL / POPUP
+   ======================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-dark);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: linear-gradient(180deg, #3a3028 0%, #2a2018 100%);
+  border: 3px solid var(--accent-gold);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow:
+    0 0 50px rgba(212, 175, 55, 0.2),
+    inset 0 0 30px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--accent-gold);
+}
+
+.modal-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: var(--text-light);
+  white-space: pre-line;
+}
+
+.modal-emoji {
+  font-size: 70px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* Buttons */
+.btn {
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent-gold), #b8860b);
+  color: #1a1a2e;
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+}
+
+.btn-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btn-close:hover {
+  color: var(--text-light);
+}
+
+/* Code Input */
+.code-input-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.code-input {
+  width: 55px;
+  height: 65px;
+  font-size: 2rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+.code-input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.code-input.correct {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.2);
+}
+
+.code-input.wrong {
+  border-color: #f44336;
+  background: rgba(244, 67, 54, 0.2);
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-10px);
+  }
+
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+/* ========================================
+   MESSAGE SYSTEM
+   ======================================== */
+.message {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  background: rgba(30, 20, 10, 0.95);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 5px;
+  color: var(--text-light);
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 50;
+  max-width: 500px;
+  text-align: center;
+}
+
+.message.show {
+  opacity: 1;
+}
+
+/* ========================================
+   START SCREEN
+   ======================================== */
+.start-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #2a2018 0%, #0a0805 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.5s ease;
+}
+
+.start-screen.hidden {
+  display: none;
+}
+
+.start-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, var(--accent-gold), #fff, var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glow 2s ease infinite;
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.8));
+  }
+}
+
+.start-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  margin-bottom: 50px;
+  text-align: center;
+  line-height: 2;
+}
+
+.start-emoji {
+  font-size: 90px;
+  margin-bottom: 30px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* ========================================
+   END SCREEN
+   ======================================== */
+.end-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #1a3a1a 0%, #0a0f0a 100%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.end-screen.active {
+  display: flex;
+  animation: fadeIn 1s ease;
+}
+
+.end-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #4caf50;
+  text-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
+}
+
+.end-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.end-emoji {
+  font-size: 100px;
+  margin-bottom: 20px;
+  animation: celebrate 1s ease infinite;
+}
+
+@keyframes celebrate {
+
+  0%,
+  100% {
+    transform: rotate(-5deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(5deg) scale(1.1);
+  }
+}
+
+.end-stats {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  text-align: center;
+}
+
+.end-stats p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  color: var(--text-dim);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+
+  .start-title,
+  .end-title {
+    font-size: 2rem;
+  }
+
+  .painting {
+    width: 120px;
+    height: 90px;
+  }
+
+  .desk {
+    width: 150px;
+  }
+
+  .bookshelf {
+    width: 60px;
+    height: 100px;
+  }
+
+  .inventory-slot {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+
+  .calendar {
+    width: 55px;
+    height: 70px;
+  }
+
+  .calendar::before {
+    font-size: 10px;
+  }
+
+  .calendar::after {
+    font-size: 22px;
+    top: 28px;
+  }
+}
