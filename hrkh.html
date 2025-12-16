@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HRKH - モダンで美しいポートフォリオサイト。革新的なデザインと最先端の技術を体験してください。">
+  <title>HRKH - Modern Portfolio</title>
+  <style>
+    /* CSS from previous version, trimmed for brevity but includes core styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --dark-bg: #0a0e27;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text-primary: #fff;
+      --text-secondary: #b8c1ec;
+      --glow-color: rgba(102, 126, 234, 0.4);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: var(--dark-bg);
+      overflow: hidden;
+    }
+
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.6;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--primary-gradient);
+      top: -200px;
+      left: -200px;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--secondary-gradient);
+      bottom: -150px;
+      right: -150px;
+    }
+
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: var(--accent-gradient);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(0, 0)scale(1);
+      }
+
+      33% {
+        transform: translate(100px, -100px)scale(1.1);
+      }
+
+      66% {
+        transform: translate(-100px, 100px)scale(0.9);
+      }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 5%;
+      background: rgba(10, 14, 39, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+    }
+
+    nav .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all .3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-gradient);
+      transition: width .3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 5%;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff 0%, #b8c1ec 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      color: #fff;
+      box-shadow: 0 10px 30px var(--glow-color);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px var(--glow-color);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 2px solid rgba(255, 255, 255, .2);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, .1);
+      border-color: rgba(255, 255, 255, .4);
+      transform: translateY(-3px);
+    }
+
+    .features {
+      padding: 8rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 4rem;
+      background: linear-gradient(135deg, #fff 0%, #b8c1ec 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all .4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 255, 255, .3);
+      box-shadow: 0 20px 60px rgba(102, 126, 234, .3);
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 15px;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px var(--glow-color);
+    }
+
+    .feature-card:nth-child(2) .feature-icon {
+      background: var(--secondary-gradient);
+    }
+
+    .feature-card:nth-child(3) .feature-icon {
+      background: var(--accent-gradient);
+    }
+
+    .contact {
+      padding: 8rem 5%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 30px;
+      padding: 4rem 3rem;
+      margin-top: 3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, .03);
+      border-radius: 15px;
+      transition: all .3s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, .08);
+      transform: translateX(10px);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    footer {
+      padding: 3rem 5%;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      background: rgba(10, 14, 39, .5);
+      backdrop-filter: blur(20px);
+    }
+
+    footer p {
+      color: var(--text-secondary);
+    }
+
+    @media (max-width:768px) {
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all .8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo">HRKH</div>
+      <ul class="nav-links">
+        <li><a href="#home">ホーム</a></li>
+        <li><a href="#features">特徴</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>未来を創造する</h1>
+      <p class="subtitle">モダンなデザインと革新的な技術で、あなたのビジョンを実現します</p>
+      <div class="cta-buttons">
+        <a href="#features" class="btn btn-primary">詳しく見る</a>
+        <a href="#contact" class="btn btn-secondary">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-content">
+      <img src="https://via.placeholder.com/300x200" alt="Profile">
+      <p>I am a passionate developer creating modern, visually stunning web experiences with cutting‑edge technologies.
+        This portfolio showcases my skills in design, performance, and responsive development.</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2 class="section-title">私たちの特徴</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3>高速パフォーマンス</h3>
+        <p>最新の技術スタックを使用し、驚異的な速度とパフォーマンスを実現。ユーザー体験を最優先に設計されています。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✨</div>
+        <h3>美しいデザイン</h3>
+        <p>モダンで洗練されたUIデザイン。グラスモーフィズムとグラデーションを活用した、視覚的に魅力的なインターフェース。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>レスポンシブ対応</h3>
+        <p>あらゆるデバイスで完璧に動作。スマートフォンからデスクトップまで、シームレスな体験を提供します。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2 class="section-title">お問い合わせ</h2>
+    <div class="contact-card">
+      <p class="subtitle">プロジェクトについてお気軽にご相談ください</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-text">
+            <h4>メール</h4>
+            <p>contact@hrkh.example.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💬</div>
+          <div class="contact-text">
+            <h4>チャット</h4>
+            <p>平日 9:00 - 18:00 対応可能</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 HRKH. All rights reserved. | Designed with ❤️</p>
+  </footer>
+</body>
+
+</html>
