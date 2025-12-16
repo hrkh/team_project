@@ -4,13 +4,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conflict上等</title>
+  <title>祖父の書斎からの脱出 | 1ページ脱出ゲーム</title>
+  <meta name="description" content="祖父の書斎に閉じ込められた！手がかりを集めて謎を解く1ページ脱出ゲーム">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/escape-game.css">
 </head>
 
 <body>
-  <h1>Conflict上等</h1>
-  <p>no Conflict, no life</p>
-  <p>This is a minimal HTML page for the team documentation.</p>
+  <!-- ========================================
+       START SCREEN
+       ======================================== -->
+  <div id="start-screen" class="start-screen">
+    <span class="start-emoji">📚</span>
+    <h1 class="start-title">祖父の書斎からの脱出</h1>
+    <p class="start-subtitle">
+      あなたは祖父の古い書斎で目を覚ました。<br>
+      ドアには鍵がかかっている...<br><br>
+      部屋を調べて、金庫の暗証番号を見つけ出せ！<br>
+      <small style="color: #888;">💡 ヒント：暗証番号は4桁の数字です</small>
+    </p>
+    <button id="start-btn" class="btn btn-primary">ゲーム開始</button>
+  </div>
+
+  <!-- ========================================
+       GAME CONTAINER
+       ======================================== -->
+  <div class="game-container">
+    <!-- Header -->
+    <header class="game-header">
+      <h1 class="game-title">📖 祖父の書斎からの脱出</h1>
+      <div class="hint-counter">
+        <span>💡</span>
+        <span>発見: <span class="hint-count">0/7</span></span>
+      </div>
+    </header>
+
+    <!-- Room Scene -->
+    <div class="room">
+      <div class="wall"></div>
+      <div class="floor"></div>
+
+      <!-- Interactive Objects -->
+      <div class="object painting" data-type="painting" title="額縁の写真を調べる"></div>
+      <div class="object calendar" data-type="calendar" title="カレンダーを調べる"></div>
+      <div class="object clock" data-type="clock" title="時計を調べる"></div>
+      <div class="object safe" data-type="safe" title="金庫を調べる"></div>
+      <div class="object desk" data-type="desk" title="机を調べる"></div>
+      <div class="object door" data-type="door" title="ドアを調べる"></div>
+      <div class="object rug" data-type="rug" title="カーペットを調べる"></div>
+      <div class="object lamp" data-type="lamp" title="ランプを調べる"></div>
+      <div class="object bookshelf" data-type="bookshelf" title="本棚を調べる"></div>
+    </div>
+
+    <!-- Inventory -->
+    <div class="inventory">
+      <div class="inventory-slot"></div>
+      <div class="inventory-slot"></div>
+      <div class="inventory-slot"></div>
+      <div class="inventory-slot"></div>
+    </div>
+
+    <!-- Message -->
+    <div id="message" class="message"></div>
+  </div>
+
+  <!-- ========================================
+       MODAL - General
+       ======================================== -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="btn-close">&times;</button>
+      <span id="modal-emoji" class="modal-emoji">🔍</span>
+      <h2 id="modal-title" class="modal-title">発見！</h2>
+      <p id="modal-text" class="modal-text">メッセージ</p>
+      <button id="modal-action" class="btn btn-primary">わかった</button>
+    </div>
+  </div>
+
+  <!-- ========================================
+       MODAL - Safe Code Entry
+       ======================================== -->
+  <div id="safe-modal" class="modal">
+    <div class="modal-content">
+      <button class="btn-close">&times;</button>
+      <span class="modal-emoji">🔐</span>
+      <h2 class="modal-title">金庫</h2>
+      <p class="modal-text">4桁の暗証番号を入力してください<br><small style="color: #888;">💡 祖父の誕生日は何月何日？</small></p>
+      <div class="code-input-container">
+        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+        <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+      </div>
+      <button id="submit-code" class="btn btn-primary">解錠する</button>
+    </div>
+  </div>
+
+  <!-- ========================================
+       END SCREEN
+       ======================================== -->
+  <div id="end-screen" class="end-screen">
+    <span class="end-emoji">🎉</span>
+    <h1 class="end-title">脱出成功！</h1>
+    <p class="end-subtitle">おめでとうございます！</p>
+    <p style="color: #aaa; margin-bottom: 20px;">
+      祖父の誕生日「11月17日」が暗証番号でした
+    </p>
+    <div class="end-stats">
+      <p>⏱️ クリアタイム: <strong id="end-time">0分0秒</strong></p>
+    </div>
+    <button id="restart-btn" class="btn btn-primary" style="margin-top: 30px;">もう一度プレイ</button>
+  </div>
+
+  <!-- Game Script -->
+  <script src="js/escape-game.js"></script>
 </body>
 
 </html>
