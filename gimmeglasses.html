@@ -1,1 +1,155 @@
-first push!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat Actions</title>
+  <style>
+    :root {
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: #2d2a32;
+      background: #f7f4ea;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem 3rem;
+      max-width: 520px;
+      width: 100%;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 2.2rem;
+      text-align: center;
+    }
+    .runner {
+      position: relative;
+      margin: 1rem auto 0;
+      height: 70px;
+      max-width: 360px;
+      border-radius: 40px;
+      background: linear-gradient(90deg, #fde7c8, #ffeecf);
+      overflow: hidden;
+    }
+    .track-line {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(45, 42, 50, 0.15);
+    }
+    .cat {
+      position: absolute;
+      bottom: 10px;
+      left: -70px;
+      font-size: 2.4rem;
+      animation: run 5s linear infinite;
+    }
+    .dust {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(45, 42, 50, 0.13);
+      opacity: 0;
+      animation: dust 5s linear infinite;
+    }
+    @keyframes run {
+      0% { transform: translateX(0) scale(1); }
+      45% { transform: translateX(370px) scale(1.05); }
+      50% { transform: translateX(370px) scale(1.05); }
+      95% { transform: translateX(0) scale(1); }
+      100% { transform: translateX(0) scale(1); }
+    }
+    @keyframes dust {
+      0%, 45% { transform: translateX(-10px); opacity: 0; }
+      50% { transform: translateX(360px); opacity: 0.2; }
+      60% { transform: translateX(330px); opacity: 0; }
+      95% { transform: translateX(-20px); opacity: 0.2; }
+      100% { transform: translateX(-10px); opacity: 0; }
+    }
+    .actions {
+      list-style: none;
+      margin: 2rem 0 0;
+      padding: 0;
+    }
+    .actions li {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      border: 1px solid #f1dfc9;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(120deg, #fff, #fdf3e0);
+    }
+    .emoji {
+      font-size: 1.8rem;
+    }
+    .details {
+      flex: 1;
+    }
+    .details h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .details p {
+      margin: 0.2rem 0 0;
+      font-size: 0.95rem;
+      color: #6a5f51;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Cat Actions Tracker</h1>
+    <div class="runner" aria-hidden="true">
+      <div class="track-line"></div>
+      <div class="cat">🐈</div>
+      <div class="dust"></div>
+    </div>
+    <ul class="actions">
+      <li>
+        <span class="emoji" aria-hidden="true">😺</span>
+        <div class="details">
+          <h2>Morning Stretch</h2>
+          <p>Arch the back, flex the paws, and shake off the sleep.</p>
+        </div>
+      </li>
+      <li>
+        <span class="emoji" aria-hidden="true">🍗</span>
+        <div class="details">
+          <h2>Snack Patrol</h2>
+          <p>Inspect the kitchen, chirp at the bowl, and demand a refill.</p>
+        </div>
+      </li>
+      <li>
+        <span class="emoji" aria-hidden="true">🎾</span>
+        <div class="details">
+          <h2>Laser Chase</h2>
+          <p>Launch into zoomies whenever the red dot appears.</p>
+        </div>
+      </li>
+      <li>
+        <span class="emoji" aria-hidden="true">🛏️</span>
+        <div class="details">
+          <h2>Power Nap</h2>
+          <p>Claim the sunniest spot and snooze with a happy purr.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
